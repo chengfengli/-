@@ -1,0 +1,10 @@
+.layui-body{
+    padding: 15px;
+}
+.layui-layout-admin .layui-logo{
+    width:auto;
+    color: #FFF;
+    font-size: 22px;
+    padding-left: 22px;
+    text-align:left;
+}
