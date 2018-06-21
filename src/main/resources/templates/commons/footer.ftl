@@ -1,1 +1,1 @@
-<div class="layui-footer">© layui.com - 底部固定区域</div>
+<div class="layui-footer" style="text-align: center;">© www.xuexispace.com - 学习空间管理系统</div>

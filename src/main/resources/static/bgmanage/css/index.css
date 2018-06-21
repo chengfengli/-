@@ -1,6 +1,6 @@
 .row{
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .row .col{
     flex: 1;

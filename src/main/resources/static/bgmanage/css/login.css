@@ -33,3 +33,10 @@ html,body{
     text-align:left;
     color: #FF5722;
 }
+@media screen and (max-width: 800px) {
+    .login-box{
+        width: 90%;
+        margin-left: 0;
+        left: 0;
+    }
+}

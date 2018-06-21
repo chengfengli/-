@@ -1,14 +1,69 @@
-layui.use('element', function(){
-    var element = layui.element;
+layui.use(['element','tools','table'], function(){
+    var tools = layui.tools;
+    echartFun1(tools.colors);
+    echartFun2(tools.colors);
+    echartFun3(tools.colors);
+    echartFun4(tools.colors);
+    var data = [
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+        {title:'Linux系统解压文件命令',sex:'linux',city:200,},
+    ];
+    /*有用笔记*/
+    layui.table.render({
+        elem: '#use-note',
+        height: 430,
+        //url: '/demo/table/user/',
+        data:data,
+        page: false,
+        cols: [[
+            {title: '序号', width:80,templet:function(row){
+                return row.LAY_INDEX;
+            }},
+            {field: 'title', title: '标题',align:'center'},
+            {field: 'sex', title: '所属方向',align:'center'},
+            {field: 'city', title: '采用量',align:'center'},
+            {title: '详情',align:'center',templet:function(row){
+                return '<button onclick="details()" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
+            }},
+        ]]
+    });
+    /*无用用笔记*/
+    layui.table.render({
+        elem: '#unuse-note',
+        height: 430,
+        //url: '/demo/table/user/',
+        data:data,
+        page: false,
+        cols: [[
+            {title: '序号', width:80,templet:function(d,a){
+                return d.LAY_INDEX;
+            }},
+            {field: 'title', title: '标题',align:'center'},
+            {field: 'sex', title: '所属方向',align:'center'},
+            {field: 'city', title: '采用量',align:'center'},
+            {title: '详情',align:'center',templet:function(row){
+                return '<button onclick="details()" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
+            }},
+        ]]
+    });
 });
 /*近期用户增长情况*/
-function echartFun1(){
+function echartFun1(colors){
     var echart = echarts.init(document.getElementById('echart1'));
     var option = {
         tooltip: {
             trigger: 'axis'
         },
         grid: {
+            top: 20,
             left: '3%',
             right: '4%',
             bottom: '3%',
@@ -32,19 +87,21 @@ function echartFun1(){
                 stack: '总量',
                 data:[120, 132, 101, 134, 90, 230, 210]
             }
-        ]
+        ],
+        color:colors
     };
     echart.setOption(option);
 }
 
 /*近期访问量情况*/
-function echartFun2(){
+function echartFun2(colors){
     var echart = echarts.init(document.getElementById('echart2'));
     var option = {
         tooltip: {
             trigger: 'axis'
         },
         grid: {
+            top: 20,
             left: '3%',
             right: '4%',
             bottom: '3%',
@@ -68,19 +125,21 @@ function echartFun2(){
                 stack: '总量',
                 data:[120, 132, 101, 134, 90, 230, 210]
             }
-        ]
+        ],
+        color:colors
     };
     echart.setOption(option);
 }
 
 /*各方向访问量排行*/
-function echartFun3(){
+function echartFun3(colors){
     var echart = echarts.init(document.getElementById('echart3'));
     var option = {
         tooltip: {
             trigger: 'axis'
         },
         grid: {
+            top: 20,
             left: '3%',
             right: '4%',
             bottom: '3%',
@@ -108,13 +167,14 @@ function echartFun3(){
                 barWidth: '60%',
                 data:[10, 52, 200, 334, 390, 330, 220]
             }
-        ]
+        ],
+        color:colors
     };
     echart.setOption(option);
 }
 
 /*系统当前笔记数量统计*/
-function echartFun4(){
+function echartFun4(colors){
     var echart = echarts.init(document.getElementById('echart4'));
     var option = {
         tooltip : {
@@ -126,7 +186,7 @@ function echartFun4(){
                 name: '访问来源',
                 type: 'pie',
                 radius : '55%',
-                center: ['50%', '60%'],
+                center: ['45%', '50%'],
                 data:[
                     {value:335, name:'直接访问'},
                     {value:310, name:'邮件营销'},
@@ -142,14 +202,15 @@ function echartFun4(){
                     }
                 }
             }
-        ]
+        ],
+        color:colors
     };
     echart.setOption(option);
 }
-$(function(){
-    echartFun1();
-    echartFun2();
-    echartFun3();
-    echartFun4();
-});
+
+/*详情*/
+function details(){
+    alert();
+}
+
 

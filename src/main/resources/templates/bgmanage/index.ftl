@@ -26,18 +26,30 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <h2>各方向访问量排行Top10</h2>
+                        <h2>近期各方向访问量排行Top10</h2>
                         <div class="echarts" id="echart3"></div>
                     </div>
                     <div class="col">
-                        <h2>系统当前笔记数量统计</h2>
+                        <h2>笔记数量统计</h2>
                         <div class="echarts" style="display: flex;">
                             <div class="note-total">
-                                <div>系统笔记总量</div>
+                                <div>当前笔记总量</div>
                                 <span>600</span>条
                             </div>
                             <div id="echart4"></div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="height: auto;">
+                        <h2>有用笔记排行Top10</h2>
+                        <table id="use-note"></table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="height: auto;">
+                        <h2>无用笔记排行Top10</h2>
+                        <table id="unuse-note"></table>
                     </div>
                 </div>
             </div>

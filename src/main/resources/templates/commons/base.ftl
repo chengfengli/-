@@ -7,4 +7,9 @@
 <script src="${springMacroRequestContext.contextPath}/bgmanage/js/header.js"></script>
 <script>
     var hostURL = '${springMacroRequestContext.contextPath}';
+    layui.config({
+        base:"${springMacroRequestContext.contextPath}/commons/"
+    }).extend({
+        "tools":"tools"
+    });
 </script>

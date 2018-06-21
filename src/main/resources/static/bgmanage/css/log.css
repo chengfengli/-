@@ -1,0 +1,13 @@
+.layui-input-inline{
+    position: relative;
+}
+.layui-input-inline .layui-icon-date{
+    position: absolute;
+    font-size: 20px;
+    top: 7px;
+    right: 6px;
+}
+/*查询按钮*/
+#select-btn{
+    margin-left: 20px;
+}

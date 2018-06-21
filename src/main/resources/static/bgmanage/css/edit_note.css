@@ -1,0 +1,11 @@
+.layui-layout-body{
+    width: 100%;
+    line-height: 24px;
+}
+.stream-main-upload-box{
+    width: 99%;
+    margin-top: 10px;
+}
+.stream-files-scroll{
+    height: auto;
+}
