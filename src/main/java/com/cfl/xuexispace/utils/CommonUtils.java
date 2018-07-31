@@ -1,5 +1,6 @@
 package com.cfl.xuexispace.utils;
 
+import com.cfl.xuexispace.entity.User;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 
@@ -7,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -156,5 +159,14 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return add;
+    }
+
+    /**
+     * 获取当前用户的信息
+     * @param request
+     * @return
+     */
+    public static User getCurrentUser(HttpServletRequest request){
+        return (User)request.getSession().getAttribute("user");
     }
 }

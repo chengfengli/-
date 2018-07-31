@@ -34,7 +34,7 @@
                         <div class="echarts" style="display: flex;">
                             <div class="note-total">
                                 <div>当前笔记总量</div>
-                                <span>600</span>条
+                                <span id="note-all-count">0</span>条
                             </div>
                             <div id="echart4"></div>
                         </div>

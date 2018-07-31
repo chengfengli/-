@@ -18,8 +18,8 @@ layui.use(['element','table','tools','layer','laydate'],function () {
             {field: 'ipAddress', title: 'IP地址',align:'center'},
             {field: 'city', title: '所属城市',align:'center'},
             {title: '操作',align:'center', width:80,templet:function(row){
-                var id = row.id;
-                return '<button onclick="del('+id+')" class="layui-btn layui-btn-danger layui-btn-xs">删除</button>';
+                var logId = row.logId;
+                return '<button onclick="del('+logId+')" class="layui-btn layui-btn-danger layui-btn-xs">删除</button>';
             }},
         ]]
     });
@@ -38,7 +38,7 @@ layui.use(['element','table','tools','layer','laydate'],function () {
 });
 
 /*删除*/
-function del(id){
+function del(logId){
     layui.layer.confirm('确定删除当前数据？', {
         title: '温馨提示',
         btn: ['确定','取消']
@@ -47,7 +47,7 @@ function del(id){
             url:hostURL+'/bgmanage/deleteLog',
             type:'post',
             dataType:'json',
-            data:{id:id},
+            data:{logId:logId},
             complete:function(res){
                 layui.tools.closeAll();
                 if(res.code==0){
@@ -63,7 +63,6 @@ function del(id){
                 }
             }
         });
-
         return false;
     });
 }

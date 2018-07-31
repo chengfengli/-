@@ -9,3 +9,26 @@
 .stream-files-scroll{
     height: auto;
 }
+.uploader-list td{
+    padding: 5px 10px;
+}
+.file-name{
+    width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.progress{
+    width: 200px;
+}
+.layui-progress,.layui-progress-bar{
+    height: 15px;
+    font-size: 12px;
+}
+.layui-progress-bar{
+    line-height: 15px;
+    padding: 0 5px;
+}
+.btns{
+    width: 100px;
+}

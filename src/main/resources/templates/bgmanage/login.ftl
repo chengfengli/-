@@ -19,7 +19,7 @@
                         <i class="layui-icon layui-icon-username" style="font-size: 20px;"></i>
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="account" required lay-verify="required" placeholder="请输入登录账号" autocomplete="off" class="layui-input layui-form-danger">
+                        <input type="text" id="account" required lay-verify="required" maxlength="20" placeholder="请输入登录账号" autocomplete="off" class="layui-input layui-form-danger">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -27,7 +27,7 @@
                         <i class="layui-icon layui-icon-password" style="font-size: 20px;"></i>
                     </label>
                     <div class="layui-input-block">
-                        <input type="password" id="password" required  lay-verify="required" placeholder="请输入登录密码" autocomplete="off" class="layui-input layui-form-danger">
+                        <input type="password" id="password" required  lay-verify="required" maxlength="20" placeholder="请输入登录密码" autocomplete="off" class="layui-input layui-form-danger">
                     </div>
                 </div>
                 <div class="layui-form-item">

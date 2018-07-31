@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cfl.xuexispace.mapper.LogMapper">
+    <resultMap id="resultLog" type="com.cfl.xuexispace.entity.Log">
+        <result column="logId" property="logId" />
+        <result column="editUser" property="editUser" />
+        <result column="editTime" property="editTime" />
+        <result column="describe" property="describe" />
+        <result column="ipAddress" property="ipAddress" />
+        <result column="clientType" property="clientType" />
+        <result column="city" property="city" />
+    </resultMap>
+
+    <insert id="insertLog" parameterType="com.cfl.xuexispace.entity.Log">
+        INSERT INTO `logs` VALUES(null,#{editUser},#{editTime},#{describe},#{ipAddress},#{clientType},#{city})
+    </insert>
+
+    <!--分页查询-->
+    <select id="selectLog" parameterType="com.cfl.xuexispace.entity.Log" resultMap="resultLog">
+        SELECT * FROM `logs`
+        <where>
+            <if test="editUser != null and editUser != ''">
+                AND editUser = #{editUser}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                AND editTime &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND editTime &lt;= #{endTime}
+            </if>
+        </where>
+        ORDER BY editTime DESC LIMIT #{page},#{limit}
+    </select>
+
+    <!--查询数量-->
+    <select id="selectLogCount" parameterType="com.cfl.xuexispace.entity.Log" resultMap="resultLog">
+        SELECT logId FROM `logs`
+        <where>
+            <if test="editUser != null and editUser != ''">
+                AND editUser = #{editUser}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                AND editTime &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND editTime &lt;= #{endTime}
+            </if>
+        </where>
+        ORDER BY editTime DESC
+    </select>
+    
+    <!--删除-->
+    <delete id="deleteLogById">
+        DELETE FROM `logs` WHERE logId in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

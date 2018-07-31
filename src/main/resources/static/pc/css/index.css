@@ -1,0 +1,92 @@
+.body{
+    display: flex;
+}
+#index-left{
+    flex: 1;
+    padding: 10px;
+}
+.group .type{
+    font-size: 26px;
+    text-align: center;
+    border-bottom: 5px solid #f4f4f4;
+    padding: 10px 0 15px 0;
+    position: relative;
+    margin-bottom: 30px;
+}
+.group .index-more{
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    color: #1E9FFF;
+    top: 20px;
+}
+.group .index-more .layui-icon{
+    font-size: 14px;
+}
+
+/*笔记标题*/
+.note-title{
+    font-size: 16px;
+    color: #1E9FFF;
+    word-break: break-word;
+    word-wrap: break-word;
+    font-weight: bold;
+}
+/*笔记正文*/
+.abstract{
+    word-break: break-word;
+    word-wrap: break-word;
+    font-size: 14px;
+    margin: 5px 0;
+}
+.sign{
+    padding: 5px 20px;
+}
+.sign,.sign .layui-icon{
+    color: #666;
+    font-size: 12px;
+}
+.sign .count{
+    margin-left: 5px;
+}
+.sign .tag,.sign .praise,.sign .tread{
+    margin-right: 40px;
+}
+.group-item{
+    margin-bottom: 15px;
+}
+
+/*右侧部分*/
+#index-right{
+    width: 350px;
+    padding: 10px;
+}
+#index-right .view{
+    border: 1px solid #ccc;
+    margin: 20px auto;
+}
+#index-right .view-name{
+    font-size: 16px;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+#index-right .view-name:before{
+    content: "";
+    display: inline;
+    border-left: 2px solid #1E9FFF;
+    border-right: 2px solid #1E9FFF;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+#index-right .view .list{
+    padding: 5px 0;
+}
+#index-right .view .list li{
+    padding: 2px 5px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#index-right .view .list .count{
+    float: right;
+}

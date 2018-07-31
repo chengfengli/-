@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cfl.xuexispace.mapper.NoteMapper">
+    <resultMap id="noteMap" type="com.cfl.xuexispace.entity.Note">
+        <result column="noteId" property="noteId" jdbcType="VARCHAR" />
+        <result column="noteTitle" property="noteTitle" />
+        <result column="subtitle" property="subtitle" />
+        <result column="noteTxt" property="noteTxt" />
+        <result column="noteType" property="noteType" />
+        <result column="directionId" property="directionId" />
+        <result column="tag" property="tag" />
+        <result column="browseCount" property="browseCount" />
+        <result column="useCount" property="useCount" />
+        <result column="unusedCount" property="unusedCount" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+        <result column="createUser" property="createUser" />
+        <result column="updateTime" property="updateTime" />
+        <result column="updateUser" property="updateUser" />
+        <association property="direction" javaType="com.cfl.xuexispace.entity.Direction" column="directionId" resultMap="resultDirection"></association>
+    </resultMap>
+
+    <resultMap id="resultDirection" type="com.cfl.xuexispace.entity.Direction">
+        <id column="directionId" property="directionId" />
+        <result column="directionName" property="directionName" />
+    </resultMap>
+
+    <!--添加笔记-->
+    <insert id="insert" parameterType="com.cfl.xuexispace.entity.Note">
+        INSERT INTO notes VALUES(#{noteId},#{noteTitle},#{subtitle},#{directionId},#{noteType},#{tag},#{noteTxt},#{createTime},#{createUser},null,'',0,0,0,#{status})
+    </insert>
+
+    <!--查询笔记-->
+    <select id="select" parameterType="com.cfl.xuexispace.entity.Note" resultMap="noteMap">
+        SELECT * FROM `notes`,directions WHERE notes.directionId = directions.directionId and notes.status != -1
+        <if test="noteId != null">
+            and notes.noteId = #{noteId}
+        </if>
+        <if test="noteTitle != null and noteTitle != ''">
+            and notes.noteTitle like concat(concat('%',#{noteTitle}),'%')
+        </if>
+        <if test="directionId != null">
+            and notes.directionId = #{directionId}
+        </if>
+        <if test="status != null">
+            and notes.status = #{status}
+        </if>
+        <if test="noteType != null">
+            and notes.noteType = #{noteType}
+        </if>
+        ORDER BY notes.createTime DESC
+        <if test="page != null">
+            LIMIT #{page},#{limit}
+        </if>
+    </select>
+
+    <!--关键字搜索笔记-->
+    <select id="selectNoteByKeyword" parameterType="com.cfl.xuexispace.entity.Note" resultMap="noteMap">
+        SELECT * FROM `notes`,directions
+        WHERE notes.directionId = directions.directionId and notes.status != -1
+        AND (notes.noteTitle like concat(concat('%',#{noteTitle}),'%') OR notes.noteTxt like concat(concat('%',#{noteTitle}),'%') OR notes.subtitle like concat(concat('%',#{noteTitle}),'%'))
+        ORDER BY notes.createTime DESC
+        <if test="page != null">
+            LIMIT #{page},#{limit}
+        </if>
+    </select>
+
+    <!--根据关键字查询总数量-->
+    <select id="selectCountByKeyword" parameterType="java.lang.String" resultMap="noteMap">
+        SELECT noteId FROM `notes`
+        WHERE notes.status != -1
+        AND (notes.noteTitle like concat(concat('%',#{0}),'%') OR notes.noteTxt like concat(concat('%',#{0}),'%') OR notes.subtitle like concat(concat('%',#{0}),'%'))
+    </select>
+
+    <!--通过id查询笔记-->
+    <select id="selectNoteById" parameterType="com.cfl.xuexispace.entity.Note" resultMap="noteMap">
+        SELECT * FROM `notes`,directions WHERE notes.directionId = directions.directionId and notes.noteId = #{noteId}
+    </select>
+
+    <!--查询笔记数量-->
+    <select id="selectCount" parameterType="com.cfl.xuexispace.entity.Note" resultMap="noteMap">
+        SELECT noteId FROM `notes` WHERE notes.status != -1
+        <if test="noteTitle != null and noteTitle != ''">
+            and notes.noteTitle like concat(concat('%',#{noteTitle}),'%')
+        </if>
+        <if test="directionId != null">
+            and notes.directionId = #{directionId}
+        </if>
+        <if test="status != null">
+            and notes.status = #{status}
+        </if>
+    </select>
+
+    <!--删除笔记-->
+    <update id="delete">
+        update notes set status = -1 where noteId in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--修改笔记-->
+    <update id="update" parameterType="com.cfl.xuexispace.entity.Note">
+        update notes set noteTitle=#{noteTitle},noteTxt=#{noteTxt},subtitle=#{subtitle},noteType=#{noteType},directionId=#{directionId},tag=#{tag},status = #{status},updateUser=#{updateUser},updateTime=#{updateTime} where noteId = #{noteId}
+    </update>
+
+    <!--更新笔记浏览量-->
+    <update id="updateBrowseCount" parameterType="com.cfl.xuexispace.entity.Note">
+        UPDATE `notes` SET browseCount=browseCount+1 WHERE noteId = #{noteId};
+    </update>
+
+    <!--更新笔记有效采用量-->
+    <update id="updateUseCount" parameterType="com.cfl.xuexispace.entity.Note">
+        UPDATE `notes` SET useCount=useCount+1 WHERE noteId = #{noteId};
+    </update>
+
+    <!--更新笔记无效反馈量-->
+    <update id="updateUnusedCount" parameterType="com.cfl.xuexispace.entity.Note">
+        UPDATE `notes` SET unusedCount=unusedCount+1 WHERE noteId = #{noteId};
+    </update>
+
+    <!--热门排行查询-->
+    <select id="selectHot" parameterType="java.lang.Integer" resultMap="noteMap">
+        SELECT noteId,noteTitle FROM notes WHERE `status` != -1 AND noteType = #{0}
+    </select>
+
+    <!--最新推荐-->
+    <select id="selectNew" parameterType="java.lang.Integer" resultMap="noteMap">
+        SELECT  noteId,noteTitle FROM notes WHERE noteId in(SELECT noteId FROM notes WHERE `status` != -1 AND noteType = #{0} ORDER BY createTime DESC) ORDER BY createTime ASC LIMIT 0,10
+    </select>
+
+    <!--各方向访问量排行-->
+    <select id="browseTopGroupByDirection" resultMap="noteMap">
+        SELECT SUM(browseCount) as 'browseCount',directions.directionName as noteTxt FROM `notes`,directions
+        WHERE notes.directionId = directions.directionId GROUP BY notes.directionId ORDER BY browseCount DESC LIMIT 0,10
+    </select>
+
+    <!--有用/无用笔记排行-->
+    <select id="selectByUse" parameterType="java.lang.String" resultMap="noteMap">
+        SELECT * FROM notes,directions WHERE notes.directionId = directions.directionId
+        <if test="type == 'use'">
+             ORDER BY useCount DESC
+        </if>
+        <if test="type == 'unuse'">
+            ORDER BY unusedCount DESC
+        </if>
+        LIMIT 0,10
+    </select>
+
+</mapper>

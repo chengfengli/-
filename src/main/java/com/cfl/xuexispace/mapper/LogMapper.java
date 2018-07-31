@@ -1,11 +1,6 @@
 package com.cfl.xuexispace.mapper;
 
 import com.cfl.xuexispace.entity.Log;
-import com.cfl.xuexispace.provider.CommonsProvider;
-import com.cfl.xuexispace.provider.LogMapperProvider;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -22,7 +17,6 @@ public interface LogMapper {
      * @param log
      * @return
      */
-    @InsertProvider(type=LogMapperProvider.class,method = "insert")
     int insertLog(Log log);
 
     /**
@@ -30,7 +24,6 @@ public interface LogMapper {
      * @param log
      * @return
      */
-    @SelectProvider(type = LogMapperProvider.class,method = "selectLog")
     List<Log> selectLog(Log log);
 
     /**
@@ -38,13 +31,11 @@ public interface LogMapper {
      * @param log
      * @return
      */
-    @SelectProvider(type = LogMapperProvider.class,method = "selectLogCount")
-    public int selectLogCount(Log log);
+    List<Log> selectLogCount(Log log);
 
     /**
      * 删除日志
      * @return
      */
-    @DeleteProvider(type = LogMapperProvider.class,method = "deleteLog")
-    public int deleteLogById(String id);
+    public int deleteLogById(String[] ids);
 }

@@ -1,8 +1,6 @@
 package com.cfl.xuexispace.mapper;
 
 import com.cfl.xuexispace.entity.User;
-import com.cfl.xuexispace.provider.UserMapperProvider;
-import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -14,6 +12,5 @@ import java.util.List;
  */
 
 public interface UserMapper {
-    @SelectProvider(type = UserMapperProvider.class, method = "selectUser")
     public List<User> selectUser(User user);
 }

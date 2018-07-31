@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cfl.xuexispace.mapper.UserMapper">
+    <resultMap id="resultUser" type="com.cfl.xuexispace.entity.User">
+        <result column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="userName" property="userName" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="type" property="type" />
+        <result column="registerTime" property="registerTime" />
+        <result column="registerIP" property="registerIP" />
+        <result column="registerCity" property="registerCity" />
+        <result column="loginTime" property="loginTime" />
+        <result column="loginCity" property="loginCity" />
+        <result column="loginIP" property="loginIP" />
+    </resultMap>
+
+    <select id="selectUser" parameterType="com.cfl.xuexispace.entity.User" resultMap="resultUser">
+        select * from users
+        <where>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="account != null and account != ''">
+                and account = #{account}
+            </if>
+            <if test="userName != null and userName != ''">
+                and userName = #{userName}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+</mapper>

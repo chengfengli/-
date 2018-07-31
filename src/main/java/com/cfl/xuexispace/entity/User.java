@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    private int ip;
+    private Integer id;
     //登陆账号
     private String account;
     //用户名

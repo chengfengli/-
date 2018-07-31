@@ -1,9 +1,24 @@
 layui.use(['element','tools','table'], function(){
     var tools = layui.tools;
+    // 笔记数量统计
+    tools.post({
+        url:hostURL+'/bgmanage/noteCountStatistics',
+        complete:function (res) {
+            $('#note-all-count').html(res.data.allCount);
+            echartFun4(tools.colors,res.data.list);
+        }
+    });
+
+    // 各方向访问量排行
+    tools.post({
+        url:hostURL+"/bgmanage/browseTopGroupByDirection",
+        complete:function (res) {
+            echartFun3(tools.colors,res.data);
+        }
+    })
     echartFun1(tools.colors);
     echartFun2(tools.colors);
-    echartFun3(tools.colors);
-    echartFun4(tools.colors);
+
     var data = [
         {title:'Linux系统解压文件命令',sex:'linux',city:200,},
         {title:'Linux系统解压文件命令',sex:'linux',city:200,},
@@ -19,38 +34,40 @@ layui.use(['element','tools','table'], function(){
     /*有用笔记*/
     layui.table.render({
         elem: '#use-note',
-        height: 430,
-        //url: '/demo/table/user/',
-        data:data,
+        url:hostURL + '/bgmanage/selectByUse/',
         page: false,
         cols: [[
             {title: '序号', width:80,templet:function(row){
                 return row.LAY_INDEX;
             }},
-            {field: 'title', title: '标题',align:'center'},
-            {field: 'sex', title: '所属方向',align:'center'},
-            {field: 'city', title: '采用量',align:'center'},
+            {field: 'noteTitle', title: '标题',align:'center'},
+            {title: '所属方向',align:'center',templet:function (row) {
+                return row.direction.directionName;
+            }},
+            {field: 'useCount', title: '采用量',align:'center'},
             {title: '详情',align:'center',templet:function(row){
-                return '<button onclick="details()" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
+                var noteId = row.noteId;
+                return '<button onclick="details(this)" data-id="'+noteId+'" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
             }},
         ]]
     });
     /*无用用笔记*/
     layui.table.render({
         elem: '#unuse-note',
-        height: 430,
-        //url: '/demo/table/user/',
-        data:data,
+        url:hostURL + '/bgmanage/selectByUnUse/',
         page: false,
         cols: [[
             {title: '序号', width:80,templet:function(d,a){
                 return d.LAY_INDEX;
             }},
-            {field: 'title', title: '标题',align:'center'},
-            {field: 'sex', title: '所属方向',align:'center'},
-            {field: 'city', title: '采用量',align:'center'},
+            {field: 'noteTitle', title: '标题',align:'center'},
+            {title: '所属方向',align:'center',templet:function (row) {
+                return row.direction.directionName;
+            }},
+            {field: 'unusedCount', title: '反馈量',align:'center'},
             {title: '详情',align:'center',templet:function(row){
-                return '<button onclick="details()" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
+                var noteId = row.noteId;
+                return '<button onclick="details(this)" data-id="'+noteId+'" class="layui-btn layui-btn-normal layui-btn-xs">详情</button>';
             }},
         ]]
     });
@@ -132,7 +149,13 @@ function echartFun2(colors){
 }
 
 /*各方向访问量排行*/
-function echartFun3(colors){
+function echartFun3(colors,data){
+    var x_data = [];
+    var y_data = [];
+    for (var key in data){
+        x_data.push(key);
+        y_data.push(data[key])
+    }
     var echart = echarts.init(document.getElementById('echart3'));
     var option = {
         tooltip: {
@@ -148,7 +171,7 @@ function echartFun3(colors){
         xAxis: [
             {
                 type : 'category',
-                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                data : x_data,
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -165,7 +188,7 @@ function echartFun3(colors){
                 name:'访问量',
                 type:'bar',
                 barWidth: '60%',
-                data:[10, 52, 200, 334, 390, 330, 220]
+                data:y_data
             }
         ],
         color:colors
@@ -174,7 +197,7 @@ function echartFun3(colors){
 }
 
 /*系统当前笔记数量统计*/
-function echartFun4(colors){
+function echartFun4(colors,data){
     var echart = echarts.init(document.getElementById('echart4'));
     var option = {
         tooltip : {
@@ -183,17 +206,11 @@ function echartFun4(colors){
         },
         series : [
             {
-                name: '访问来源',
+                name: '各方向笔记数量占比',
                 type: 'pie',
                 radius : '55%',
                 center: ['45%', '50%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
-                ],
+                data:data,
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -209,8 +226,8 @@ function echartFun4(colors){
 }
 
 /*详情*/
-function details(){
-    alert();
+function details($this){
+    layui.tools.popTo(hostURL+"/bgmanage/noteView?id="+$this.dataset.id,true);
 }
 
 

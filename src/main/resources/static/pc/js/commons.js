@@ -1,0 +1,3 @@
+layui.use(['tools'],function () {
+
+});

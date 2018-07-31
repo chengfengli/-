@@ -31,7 +31,8 @@ html,body{
 }
 .motto{
     text-align:left;
-    color: #FF5722;
+    color: rgba(0,0,0,0.3);
+    font-weight: bold;
 }
 @media screen and (max-width: 800px) {
     .login-box{

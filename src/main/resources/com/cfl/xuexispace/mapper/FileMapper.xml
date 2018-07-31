@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cfl.xuexispace.mapper.FileMapper">
+    <resultMap id="fileMap" type="com.cfl.xuexispace.entity.FileEntity">
+        <id column="fileId" property="fileId" />
+        <result column="fileName" property="fileName" />
+        <result column="fileAlias" property="fileAlias" />
+        <result column="noteId" property="noteId" />
+        <result column="filePath" property="filePath" />
+        <result column="fileURL" property="fileURL" />
+        <result column="fileSize" property="fileSize" />
+        <result column="downloadCount" property="downloadCount" />
+        <result column="createTime" property="createTime" />
+        <result column="createUser" property="createUser" />
+    </resultMap>
+
+    <!--保存文件信息-->
+    <insert id="insertFile" parameterType="com.cfl.xuexispace.entity.FileEntity">
+        INSERT INTO files VALUES(null,#{fileName},#{fileAlias},#{noteId},#{filePath},#{fileURL},#{fileSize},0,#{createTime},#{createUser})
+    </insert>
+
+    <!--根据笔记id查询所属附件-->
+    <select id="selectFileByNoteId" parameterType="java.lang.String" resultMap="fileMap">
+        SELECT * FROM `files` WHERE noteId = #{0}
+    </select>
+
+    <!--删除文件信息-->
+    <delete id="deleteFile"  parameterType="java.lang.Integer">
+        DELETE FROM files WHERE fileId = #{0}
+    </delete>
+
+    <!--根据文件id查询文件信息-->
+    <select id="selectFileById" parameterType="java.lang.Integer" resultType="com.cfl.xuexispace.entity.FileEntity">
+        SELECT fileName,filePath FROM files WHERE fileId = #{0} LIMIT 0,1
+    </select>
+
+
+</mapper>

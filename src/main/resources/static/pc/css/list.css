@@ -1,0 +1,74 @@
+.body{
+    display: flex;
+}
+#list-left{
+    flex: 1;
+    padding: 10px;
+}
+
+/*笔记标题*/
+.note-title{
+    font-size: 16px;
+    color: #1E9FFF;
+    word-break: break-word;
+    word-wrap: break-word;
+    font-weight: bold;
+}
+/*笔记正文*/
+.abstract{
+    word-break: break-word;
+    word-wrap: break-word;
+    font-size: 14px;
+    margin: 5px 0;
+}
+.sign{
+    padding: 5px 20px;
+}
+.sign,.sign .layui-icon{
+    color: #666;
+    font-size: 12px;
+}
+.sign .count{
+    margin-left: 5px;
+}
+.sign .tag,.sign .praise,.sign .tread{
+    margin-right: 40px;
+}
+.group-item{
+    margin-bottom: 15px;
+}
+
+/*右侧部分*/
+#list-right{
+    width: 350px;
+    padding: 10px;
+}
+#list-right .view{
+    border: 1px solid #ccc;
+    margin: 20px auto;
+}
+#list-right .view-name{
+    font-size: 16px;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+#list-right .view-name:before{
+    content: "";
+    display: inline;
+    border-left: 2px solid #1E9FFF;
+    border-right: 2px solid #1E9FFF;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+#list-right .view .list{
+    padding: 5px 0;
+}
+#list-right .view .list li{
+    padding: 2px 5px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#list-right .view .list .count{
+    float: right;
+}

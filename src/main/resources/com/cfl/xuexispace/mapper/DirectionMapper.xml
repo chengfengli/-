@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cfl.xuexispace.mapper.DirectionMapper">
+    <resultMap id="directionMap" type="com.cfl.xuexispace.entity.Direction">
+        <id column="directionId" property="directionId" />
+        <result column="directionName" property="directionName" />
+        <result column="createTime" property="createTime" />
+        <result column="createUser" property="createUser" />
+        <result column="updateTime" property="updateTime" />
+        <result column="updateUser" property="updateUser" />
+    </resultMap>
+
+    <select id="select" parameterType="com.cfl.xuexispace.entity.Direction" resultMap="directionMap">
+        SELECT * FROM directions
+        <where>
+            <if test="directionId != null">
+                and directionId = #{directionId}
+            </if>
+            <if test="directionName != null and directionName != ''">
+                and directionName like concat(concat('%',#{directionName}),'%')
+            </if>
+        </where>
+        ORDER BY createTime DESC
+    </select>
+
+    <insert id="insert" parameterType="com.cfl.xuexispace.entity.Direction">
+        INSERT INTO directions VALUES(null,#{directionName},#{createTime},#{createUser},null,null)
+    </insert>
+
+    <update id="update" parameterType="com.cfl.xuexispace.entity.Direction">
+        UPDATE directions SET directionName = #{directionName},updateUser=#{updateUser},updateTime=#{updateTime} WHERE directionId = #{directionId}
+    </update>
+
+    <!--删除-->
+    <delete id="delete">
+        DELETE FROM `directions` WHERE directionId in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,40 @@
+.body{
+    border-top: 1px solid transparent;
+    height: 100%;
+}
+html{
+    background-color: #f1f1f1;
+}
+.item{
+    background-color: #ffffff;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding: 5px 5%;
+    margin: 10px 0;
+    display: block;
+}
+.item .note-name{
+    font-size: 18px;
+}
+.item .note-subtitle{
+    font-size: 14px;
+    margin-top: 5px;
+    max-height: 40px;
+    overflow: hidden;
+}
+.item .sign{
+    color: #999;
+    padding: 3px 0;
+}
+.item .sign .layui-icon{
+    font-size: 12px;
+    margin-right: 5px;
+}
+.item .sign .praise,.item .sign .tread,.item .sign .create-time{
+    margin-left: 10px;
+}
+#load-more{
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+}

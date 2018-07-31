@@ -41,6 +41,9 @@ layui.define(['jquery','layer'],function (exports) {
                 },2000);
             }
         },
+        msg:function(msg){
+            layer.msg(msg);
+        },
         /*成功提示框*/
         succTips:function (msg,callback) {
             layer.msg(msg,{icon:1});

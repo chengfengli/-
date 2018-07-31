@@ -1,6 +1,6 @@
 package com.cfl.xuexispace.entity;
 
-import lombok.Builder;
+import com.cfl.xuexispace.utils.CommonUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Log extends Page {
-    private int id;
+    private Integer logId;
     //操作人
     private String editUser;
     //操作时间
@@ -38,5 +38,12 @@ public class Log extends Page {
         this.describe = describe;
         this.clientType = clientType;
         this.city = city;
+    }
+
+    public String getEditTime() {
+        if(CommonUtils.isNotEmpty(editTime)){
+            return editTime.substring(0,16);
+        }
+        return "";
     }
 }

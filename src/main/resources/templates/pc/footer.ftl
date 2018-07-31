@@ -1,0 +1,1 @@
+<div class="footer" style="text-align: center;">Copyright &copy;2018 xuexispace.All Rights Reserved</div>

@@ -1,0 +1,58 @@
+.body{
+    padding: 30px 5%;
+}
+.details-note-title{
+    font-weight: bold;
+    word-break: break-all;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+.sign{
+    padding: 5px 0;
+}
+.sign,.sign .layui-icon{
+    color: #666;
+    font-size: 12px;
+}
+.sign .count{
+    margin-left: 5px;
+}
+.sign .praise,.sign .tread,.sign .create-time{
+    margin-left: 10px;
+}
+
+.details-content{
+    word-break: break-all;
+    word-wrap: break-word;
+    margin-top: 20px;
+    line-height: 30px;
+}
+
+.file-list{
+    display: flex;
+    width: 400px;
+    padding: 5px 0;
+}
+.file-list .file-name{
+    flex: 1;
+}
+.file-name a{
+    color: #1E9FFF;
+}
+.file-list .down{
+    width: 60px;
+}
+
+.comment{
+    text-align: center;
+}
+.comment .layui-btn{
+    margin: 20px;
+}
+.layui-btn .layui-icon{
+    font-size: 29px;
+}
+#submit{
+    margin-top: 20px;
+}

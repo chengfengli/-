@@ -1,7 +1,7 @@
 layui.use(['element','form','tools'], function(){
-    var element = layui.element;
     var tools = layui.tools;
     $("#canvas").canvas1();
+    /*登陆*/
     $('.login-btn').click(function () {
         var account = $('#account').val();
         var password = $('#password').val();
@@ -11,6 +11,7 @@ layui.use(['element','form','tools'], function(){
             tools.errTips("密码不能为空");
         }else{
             var params = {account:account,password:password};
+            $('.login-btn').addClass('layui-btn-disabled').attr('disabled','disabled').html('登录中...');
             $.ajax({
                 url:hostURL+'/bgmanage/login',
                 type:'post',
@@ -21,10 +22,17 @@ layui.use(['element','form','tools'], function(){
                         sessionStorage.setItem("menu","home");
                         tools.popTo(hostURL+'/bgmanage/home',false);
                     }else{
+                        $('.login-btn').removeClass('layui-btn-disabled').attr('disabled',false).html('登&nbsp;&nbsp;录');
                         tools.errTips(res.msg);
                     }
                 }
             });
+        }
+    });
+    // 回车键事件
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $('.login-btn').click();
         }
     });
 });
