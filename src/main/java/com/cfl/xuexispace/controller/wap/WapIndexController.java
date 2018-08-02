@@ -4,6 +4,7 @@ import com.cfl.xuexispace.entity.FileEntity;
 import com.cfl.xuexispace.entity.Note;
 import com.cfl.xuexispace.service.FileService;
 import com.cfl.xuexispace.service.NoteService;
+import com.cfl.xuexispace.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,7 +87,10 @@ public class WapIndexController {
         // 修改浏览量
         noteService.updateBrowseCount(note);
         if(list.size()!=0){
-            model.addAttribute("note",list.get(0));
+            note = list.get(0);
+            String content = FileUtil.readFile(note.getNoteTxt());
+            note.setNoteTxt(content);
+            model.addAttribute("note",note);
             // 查询附件
             List<FileEntity> files = fileService.selectFileByNoteId(list.get(0).getNoteId());
             model.addAttribute("files",files);
